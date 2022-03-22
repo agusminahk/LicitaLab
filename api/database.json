@@ -1,3 +1,39 @@
 {
-    "tasks": [{}]
+    "tasks": [
+        {
+            "id": 1,
+            "content": "works work work work work work work",
+            "date": "Wed Mar 02 2022 19:27:25 GMT-0300 (hora estándar de Argentina",
+            "status": "aTiempo",
+            "completed": false
+        },
+        {
+            "id": 2,
+            "content": "hacer lista to do",
+            "date": "05 Mar 2022 19:27:25 GMT-0300 (hora estándar de Argentina",
+            "status": "fueraDeTiempo",
+            "completed": false
+        },
+        {
+            "id": 3,
+            "content": "agustinminahk@MacBook-Pro-de-Agustin LicitaLab % git push origin dev-agus",
+            "date": "Wed Mar 02 2022 19:27:25 GMT-0300 (hora estándar de Argentina",
+            "status": "enCurso",
+            "completed": false
+        },
+        {
+            "id": 4,
+            "content": "haagustinminahk@MacBook-Pro-de-Agustin LicitaLab % git push origin dev-agus laksjda slk",
+            "date": "Wed Mar 02 2022 19:27:25 GMT-0300 (hora estándar de Argentina",
+            "status": "fueraDeTiempo",
+            "completed": false
+        },
+        {
+            "id": 5,
+            "content": "agustinminahk@MacBook-Pro-de-Agustin LicitaLab % git push origin dev-agus agustinminahk@MacBook-Pro-de-Agustin LicitaLab % git push origin dev-agus",
+            "date": "Wed Mar 02 2022 19:27:25 GMT-0300 (hora estándar de Argentina",
+            "status": "fueraDeTiempo",
+            "completed": false
+        }
+    ]
 }

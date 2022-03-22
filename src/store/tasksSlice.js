@@ -3,9 +3,15 @@ import { createSlice } from '@reduxjs/toolkit';
 export const tasksSlice = createSlice({
     name: 'tasks',
     initialState: {
-        tasks: [],
+        tasksList: [],
     },
     reducers: {
-        setTasks: (state, action) => (state.tasks = action.payload),
+        setTasks: (state, action) => {
+            state.tasksList = action.payload;
+        },
     },
 });
+
+export const { setTasks } = tasksSlice.actions;
+
+export default tasksSlice.reducer;

@@ -1,7 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/App';
+import { Provider } from 'react-redux';
 import { StyledEngineProvider, createTheme, ThemeProvider } from '@mui/material/styles';
+
+import { store } from './store/store.js';
 
 const defaultTheme = createTheme();
 const theme = createTheme({
@@ -19,13 +22,13 @@ const theme = createTheme({
 
 ReactDOM.render(
     <React.StrictMode>
-        <StyledEngineProvider injectFirst>
-            <ThemeProvider theme={theme}>
-                <App />
-            </ThemeProvider>
-        </StyledEngineProvider>
+        <Provider store={store}>
+            <StyledEngineProvider injectFirst>
+                <ThemeProvider theme={theme}>
+                    <App />
+                </ThemeProvider>
+            </StyledEngineProvider>
+        </Provider>
     </React.StrictMode>,
     document.getElementById('root')
 );
-
-reportWebVitals();
