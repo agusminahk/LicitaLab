@@ -5,6 +5,8 @@
             "content": "works work work work work work work",
             "date": "Wed Mar 02 2022 19:27:25 GMT-0300 (hora estándar de Argentina",
             "status": "aTiempo",
+            "createAt": "",
+            "expireAt": "",
             "completed": false
         },
         {
@@ -12,6 +14,8 @@
             "content": "hacer lista to do",
             "date": "05 Mar 2022 19:27:25 GMT-0300 (hora estándar de Argentina",
             "status": "fueraDeTiempo",
+            "createAt": "",
+            "expireAt": "",
             "completed": false
         },
         {
