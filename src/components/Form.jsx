@@ -2,12 +2,13 @@ import { Button, Dialog, DialogContent, DialogTitle, Grid, TextField } from '@mu
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { updater } from '../helpers/requests.js';
-import { fechaActual } from '../helpers/auxileFunctions';
+import { updater, create } from '../helpers/requests.js';
+import { fechaActual, uniqueId } from '../helpers/auxileFunctions';
 
 const RegisterDialogForm = ({ show, setShow, setEdit, type, task }) => {
     const dispatch = useDispatch();
     const [formValues, setFormValues] = useState({
+        id: '',
         task: '',
         expireAt: '',
         createAt: '',
@@ -19,11 +20,23 @@ const RegisterDialogForm = ({ show, setShow, setEdit, type, task }) => {
         console.log(formValues);
     };
 
+    const handleSubmit = () => {
+        if (task.id) {
+            updater(dispatch, formValues);
+            setTimeout(() => setEdit(false), 500);
+        } else {
+            const date = fechaActual();
+            create(dispatch, formValues, date);
+        }
+        setShow(false);
+    };
+
     useEffect(() => {
         setFormValues({
-            task: type === 'editTask' ? task.task : '',
-            expireAt: type === 'editTask' ? task.expireAt : fechaActual(),
-            createAt: type === 'editTask' ? task.createAt : '',
+            id: task.id || uniqueId(),
+            task: task.task || '',
+            expireAt: task.expireAt || fechaActual(),
+            createAt: task.createAt || '',
         });
     }, [show]);
 
@@ -42,79 +55,73 @@ const RegisterDialogForm = ({ show, setShow, setEdit, type, task }) => {
                             setEdit(false);
                         }, 500);
                 }}
+                onKeyUp={(e) => e.key === 'Enter' && handleSubmit()}
             >
                 <DialogTitle sx={{ margin: '10px auto' }}>
                     {type === 'editTask' ? 'Editar Tarea ' : 'Agregar Tarea'}
                 </DialogTitle>
                 <DialogContent>
-                    <Grid container spacing={4} sx={{ padding: '10px' }}>
-                        <Grid item xs={12}>
-                            <TextField
-                                label="Tarea"
-                                type="text"
-                                placeholder="Lavar el auto"
-                                fullWidth
-                                name="task"
-                                value={formValues.task}
-                                InputLabelProps={{ shrink: true }}
-                                onChange={(e) => handleInputChange(e)}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-                            <TextField
-                                InputLabelProps={{ shrink: true }}
-                                label="Dia"
-                                type="datetime-local"
-                                name="expireAt"
-                                defaultValue={formValues.expireAt}
-                                fullWidth
-                                value={formValues.expireAt}
-                                onChange={handleInputChange}
-                            />
-                        </Grid>
+                    <form>
+                        <Grid container spacing={4} sx={{ padding: '10px' }}>
+                            <Grid item xs={12}>
+                                <TextField
+                                    label="Tarea"
+                                    type="text"
+                                    placeholder="Lavar el auto"
+                                    fullWidth
+                                    name="task"
+                                    value={formValues.task}
+                                    InputLabelProps={{ shrink: true }}
+                                    onChange={(e) => handleInputChange(e)}
+                                />
+                            </Grid>
+                            <Grid item xs={12}>
+                                <TextField
+                                    InputLabelProps={{ shrink: true }}
+                                    label="Dia"
+                                    type="datetime-local"
+                                    name="expireAt"
+                                    fullWidth
+                                    value={formValues.expireAt}
+                                    onChange={handleInputChange}
+                                />
+                            </Grid>
 
-                        <Grid
-                            item
-                            xs={12}
-                            sx={{
-                                width: '50%',
-                                alignItems: 'center',
-                                justifyContent: 'space-around',
-                                margin: '0px auto',
-                            }}
-                        >
-                            <Button
-                                style={{ marginLeft: '15px' }}
-                                variant="contained"
-                                color="info"
-                                type="submit"
-                                disableElevation
-                                onClick={() => {
-                                    setFormValues({ ...formValues, ['createAt']: fechaActual() });
-                                    //dispatch con la info
-
-                                    updater(dispatch, formValues);
-
-                                    // reseteo el form
-                                    setShow(false);
-                                    type === 'editTask' && setTimeout(() => setEdit(false), 500);
+                            <Grid
+                                item
+                                xs={12}
+                                sx={{
+                                    width: '50%',
+                                    alignItems: 'center',
+                                    justifyContent: 'space-around',
+                                    margin: '0px auto',
                                 }}
                             >
-                                {type === 'editTask' ? 'Editar Tarea' : 'Crear Tarea'}
-                            </Button>
-                            <Button
-                                variant="contained"
-                                color="error"
-                                onClick={() => {
-                                    setShow(false);
-                                    type === 'editTask' && setTimeout(() => setEdit(false), 500);
-                                }}
-                                disableElevation
-                            >
-                                Cancelar
-                            </Button>
+                                <Button
+                                    style={{ marginLeft: '15px' }}
+                                    variant="contained"
+                                    color="info"
+                                    type="submit"
+                                    disableElevation
+                                    onClick={() => {}}
+                                >
+                                    {type === 'editTask' ? 'Editar Tarea' : 'Crear Tarea'}
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    color="error"
+                                    type="button"
+                                    onClick={() => {
+                                        setShow(false);
+                                        type === 'editTask' && setTimeout(() => setEdit(false), 500);
+                                    }}
+                                    disableElevation
+                                >
+                                    Cancelar
+                                </Button>
+                            </Grid>
                         </Grid>
-                    </Grid>
+                    </form>
                 </DialogContent>
             </Dialog>
         </>
