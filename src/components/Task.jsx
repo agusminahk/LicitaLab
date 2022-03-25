@@ -6,20 +6,17 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import TaskGenerator from '../common/TaskGenerator';
-import { sendUpdateRequest } from '../store/tasks';
-import Form from './CreateFormTask';
+import Form from './Form';
 
 const Task = () => {
     const dispatch = useDispatch();
 
     const [showForm, setShowForm] = useState(false);
     const [edit, setEdit] = useState(false);
+    const [tareaParaEditar, setTareaParaEditar] = useState({});
 
     const listaDeTareas = useSelector((state) => state.tasks);
 
-    const handleChange = () => {
-        dispatch(sendUpdateRequest({ content: 'UPDATEEE2', id: 1 }));
-    };
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
             {listaDeTareas &&
@@ -37,6 +34,7 @@ const Task = () => {
                                 height: '100%',
                             }}
                             onClick={() => {
+                                setTareaParaEditar(task);
                                 setEdit(!edit);
                                 setShowForm(!showForm);
                             }}
@@ -85,7 +83,13 @@ const Task = () => {
                 />
             </Box>
 
-            <Form show={showForm} setShow={setShowForm} setEdit={setEdit} type={(edit && 'editTask') || 'createTask'} />
+            <Form
+                show={showForm}
+                setShow={setShowForm}
+                setEdit={setEdit}
+                task={tareaParaEditar}
+                type={(edit && 'editTask') || 'createTask'}
+            />
         </Box>
     );
 };

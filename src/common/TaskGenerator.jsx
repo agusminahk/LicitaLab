@@ -4,7 +4,6 @@ import { Box, Typography, Button, TextField, SvgIcon, Checkbox } from '@mui/mate
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
-import { format } from 'date-fns';
 
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
@@ -12,16 +11,13 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
 import EditIcon from '@mui/icons-material/Edit';
 import { ContentPasteSearchTwoTone } from '@mui/icons-material';
-import { sendUpdateRequest } from '../store/tasks';
-import { getTasks } from '../store/tasks';
+
+import { updater } from '../helpers/requests.js';
+import { fechaActual } from '../helpers/auxileFunctions.js';
 
 const TaskGenerator = (props) => {
-    const { id, content, date, status, completed } = props.task;
     const dispatch = useDispatch();
-
-    const handleChange = () => {
-        dispatch(sendUpdateRequest({ content: 'UPDATEEE2', id: 1 }));
-    };
+    const { id, task, expireAt, createAt, status, completed } = props.task;
 
     return (
         <Box
@@ -36,17 +32,19 @@ const TaskGenerator = (props) => {
         >
             <Box sx={{ display: 'flex', flex: 1, alignItems: 'center', margin: '0 10px' }}>
                 <Checkbox sx={{ margin: '0px 10px' }} />
-                <Typography>{content}</Typography>
+                <Typography>{task}</Typography>
             </Box>
 
             <Box sx={{ display: 'flex', alignItems: 'center', margin: '0 10px' }}>
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
-                    <DatePicker
-                        label="Calendario"
-                        language="spanish"
-                        value={date}
-                        onChange={(newValue) => {}}
-                        renderInput={(params) => <TextField {...params} />}
+                    <TextField
+                        InputLabelProps={{ shrink: true }}
+                        label="Dia"
+                        type="datetime-local"
+                        name="expireAt"
+                        fullWidth
+                        value={expireAt}
+                        onChange={(e) => updater(dispatch, { ...props.task, ['expireAt']: e.target.value })}
                     />
                 </LocalizationProvider>
                 <SvgIcon

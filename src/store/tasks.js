@@ -14,8 +14,8 @@ export const getTasks = createAction('GET_TASKS');
 //         }
 //     });
 // });
-export const sendUpdateRequest = createAsyncThunk('UPDATE', ({ content, expireAt, id }) => {
-    return axios.put(`/tasks/${id}`, { content, expireAt }).then((res) => {
+export const sendUpdateRequest = createAsyncThunk('UPDATE', ({ task, expireAt, createAt, status, id }) => {
+    return axios.put(`/tasks/${id}`, { task, createAt, expireAt }).then((res) => {
         if (res.status === 200) {
             return res.data[0];
         }
@@ -24,5 +24,5 @@ export const sendUpdateRequest = createAsyncThunk('UPDATE', ({ content, expireAt
 
 export const tasksReducer = createReducer([], {
     [getTasks]: (state, action) => action.payload,
-    [sendUpdateRequest.fulfilled]: (state, action) => action.payload,
+    [sendUpdateRequest.fulfilled]: (state, action) => (state = action.payload),
 });
