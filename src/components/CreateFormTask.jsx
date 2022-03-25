@@ -1,7 +1,8 @@
 import { Button, Dialog, DialogContent, DialogTitle, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
 
-const RegisterDialogForm = ({ show, setShow }) => {
+const RegisterDialogForm = ({ show, setShow, setEdit, type }) => {
+    console.log(type);
     const [formValues, setFormValues] = useState({
         task: '',
         expireAt: fechaActual(),
@@ -19,28 +20,29 @@ const RegisterDialogForm = ({ show, setShow }) => {
         console.log(formValues);
     };
     const handleInputChange = (e) => {
-        const task = e.target.tarea;
-        console.log(task);
-        console.log(e);
-        setFormValues({ ...formValues, [task]: e.target.value });
+        const name = e.target.name;
+        setFormValues({ ...formValues, [name]: e.target.value });
     };
+
     return (
         <>
             <Dialog open={show} fullWidth onClose={() => setShow(false)}>
-                <DialogTitle sx={{ margin: '10px auto' }}>Agregar Tarea</DialogTitle>
+                <DialogTitle sx={{ margin: '10px auto' }}>
+                    {type === 'createTask' ? 'Agregar Tarea ' : 'Editar Tarea'}
+                </DialogTitle>
                 <DialogContent>
                     <form onSubmit={onSubmit}>
-                        <Grid container spacing={4} sx={{ padding: '10px ' }}>
+                        <Grid container spacing={4} sx={{ padding: '10px' }}>
                             <Grid item xs={12}>
                                 <TextField
                                     label="Tarea"
                                     type="text"
                                     placeholder="Lavar el auto"
                                     fullWidth
-                                    name="tarea"
-                                    value={formValues.name}
+                                    name="task"
+                                    value={formValues.task}
                                     InputLabelProps={{ shrink: true }}
-                                    onChange={handleInputChange}
+                                    onChange={(e) => handleInputChange(e)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
@@ -48,11 +50,11 @@ const RegisterDialogForm = ({ show, setShow }) => {
                                     InputLabelProps={{ shrink: true }}
                                     label="Dia"
                                     type="datetime-local"
-                                    name="Dia"
-                                    // defaultValue={formValues.expireAt}
+                                    name="expireAt"
+                                    defaultValue={formValues.expireAt}
                                     fullWidth
                                     value={formValues.expireAt}
-                                    onChange={(e) => console.log(e.target.value)}
+                                    onChange={handleInputChange}
                                 />
                             </Grid>
 
@@ -72,14 +74,23 @@ const RegisterDialogForm = ({ show, setShow }) => {
                                     color="info"
                                     type="submit"
                                     disableElevation
-                                    onClick={() => setShow(false)}
+                                    onClick={() => {
+                                        setFormValues({ ...formValues, ['createAt']: fechaActual() });
+                                        //dispatch con la info
+
+                                        // reseteo el form
+                                        setShow(false);
+                                    }}
                                 >
                                     Crear Tarea
                                 </Button>
                                 <Button
                                     variant="contained"
                                     color="error"
-                                    onClick={() => setShow(false)}
+                                    onClick={() => {
+                                        setShow(false);
+                                        type === 'editTask' && setEdit(false);
+                                    }}
                                     disableElevation
                                 >
                                     Cancelar

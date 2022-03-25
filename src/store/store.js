@@ -1,10 +1,10 @@
 import logger from 'redux-logger';
 import { configureStore } from '@reduxjs/toolkit';
-import tasksSlice from './tasksSlice.js';
+import { tasksReducer } from './tasks.js';
 
 export const store = configureStore({
     middleware: (mw) => mw().concat(logger),
     reducer: {
-        tasks: tasksSlice,
+        tasks: tasksReducer,
     },
 });
