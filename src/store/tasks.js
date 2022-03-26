@@ -15,15 +15,15 @@ export const getTasks = createAction('GET_TASKS');
 //     });
 // });
 export const sendCreateRequest = createAsyncThunk('POST', ({ task, expireAt, createAt, status, id }) => {
-    return axios.post(`/tasks`, { id, task, createAt, expireAt }).then((res) => {
+    return axios.post(`/tasks`, { id, task, createAt, expireAt, completed }).then((res) => {
         if (res.status === 200) {
             return res.data;
         }
     });
 });
 
-export const sendUpdateRequest = createAsyncThunk('UPDATE', ({ task, expireAt, createAt, status, id }) => {
-    return axios.put(`/tasks/${id}`, { task, createAt, expireAt }).then((res) => {
+export const sendUpdateRequest = createAsyncThunk('UPDATE', ({ task, expireAt, createAt, completed, id }) => {
+    return axios.put(`/tasks/${id}`, { task, createAt, expireAt, completed }).then((res) => {
         if (res.status === 200) {
             return res.data[0];
         }

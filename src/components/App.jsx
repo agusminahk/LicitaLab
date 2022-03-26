@@ -10,7 +10,7 @@ function App() {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        axios.get('/tasks').then((tareas) => {
+        axios.get('/tasks?completed=false').then((tareas) => {
             if (tareas.status === 200) dispatch(getTasks(tareas.data));
         });
     }, []);

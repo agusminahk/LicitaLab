@@ -12,6 +12,7 @@ const RegisterDialogForm = ({ show, setShow, setEdit, type, task }) => {
         task: '',
         expireAt: '',
         createAt: '',
+        completed: '',
     });
 
     const handleInputChange = (e) => {
@@ -37,6 +38,7 @@ const RegisterDialogForm = ({ show, setShow, setEdit, type, task }) => {
             task: task.task || '',
             expireAt: task.expireAt || fechaActual(),
             createAt: task.createAt || '',
+            completed: task.completed || false,
         });
     }, [show]);
 
