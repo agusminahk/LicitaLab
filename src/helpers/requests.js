@@ -1,10 +1,25 @@
 import axios from 'axios';
 
-import { getTasks, sendUpdateRequest, sendDeleteRequest, sendCreateRequest } from '../store/tasks';
+import { defaultOrder, orderByExpire } from './orderFunctions';
+import { setTasks, sendUpdateRequest, sendDeleteRequest, sendCreateRequest } from '../store/tasks';
 
 const refresh = async (dispatch) => {
     const result = await axios.get('/tasks');
-    await dispatch(getTasks(result.data));
+
+    const order = window.localStorage.getItem('order');
+
+    if (order === 'default') {
+        const tareasOrdenadasByDefault = defaultOrder(result.data);
+        return await dispatch(setTasks(tareasOrdenadasByDefault));
+    }
+
+    if (order === 'expire') {
+        const tareasOrdenadasByExpire = orderByExpire(result.data);
+        return await dispatch(setTasks(tareasOrdenadasByExpire));
+    }
+
+    if (order === 'status') {
+    }
 };
 
 export const updater = async (dispatch, task) => {

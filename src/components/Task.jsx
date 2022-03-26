@@ -7,7 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import TaskGenerator from '../common/TaskGenerator';
 import Form from './Form';
-import { taskStatus } from '../helpers/auxileFunctions.js';
+import { defaultOrder } from '../helpers/orderFunctions.js';
 
 const Task = () => {
     const dispatch = useDispatch();
@@ -17,6 +17,8 @@ const Task = () => {
     const [tareaParaEditar, setTareaParaEditar] = useState({});
 
     const listaDeTareas = useSelector((state) => state.tasks);
+
+    //  defaultOrder(listaDeTareas);
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>

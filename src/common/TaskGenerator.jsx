@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { Box, Typography, Button, TextField, SvgIcon, Checkbox } from '@mui/material';
+import { Box, Typography, TextField, SvgIcon, Checkbox } from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DatePicker from '@mui/lab/DatePicker';
-
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
-import EditIcon from '@mui/icons-material/Edit';
-import { ContentPasteSearchTwoTone } from '@mui/icons-material';
 
 import { updater } from '../helpers/requests.js';
 import { taskStatus } from '../helpers/auxileFunctions.js';

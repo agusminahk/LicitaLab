@@ -8,16 +8,13 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
 import { setTasks } from '../store/tasks.js';
+import { orderByExpire } from '../helpers/orderFunctions.js';
 
 export default function BasicMenu() {
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const tasks = useSelector(({ tasks }) => tasks);
-
-    const orderByDate = (tareas) => {
-        return [...tareas].sort((a, b) => +new Date(b.expireAt) - +new Date(a.expireAt));
-    };
 
     const open = Boolean(anchorEl);
 
@@ -51,8 +48,21 @@ export default function BasicMenu() {
             >
                 <MenuItem
                     disableRipple
+                    // onClick={() => {
+                    //     const tareasOrdenadas = orderByExpire(tasks);
+                    //     dispatch(setTasks(tareasOrdenadas));
+                    //     handleClose();
+                    // }}
+                >
+                    <EventNoteIcon sx={{ margin: '0px 5px' }} />
+                    Fecha Creación
+                </MenuItem>
+                <MenuItem
+                    disableRipple
                     onClick={() => {
-                        const tareasOrdenadas = orderByDate(tasks);
+                        console.log(tasks);
+                        const tareasOrdenadas = orderByExpire(tasks);
+                        console.log(tareasOrdenadas);
                         dispatch(setTasks(tareasOrdenadas));
                         handleClose();
                     }}
@@ -62,7 +72,7 @@ export default function BasicMenu() {
                 </MenuItem>
                 <MenuItem disableRipple onClick={handleClose}>
                     <WorkspacesIcon sx={{ margin: '0px 5px' }} />
-                    Grupo de Colores
+                    Importancia
                 </MenuItem>
             </Menu>
         </div>
