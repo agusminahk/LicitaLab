@@ -14,7 +14,7 @@ export const getTasks = createAction('GET_TASKS');
 //         }
 //     });
 // });
-export const sendCreateRequest = createAsyncThunk('POST', ({ task, expireAt, createAt, status, id }) => {
+export const sendCreateRequest = createAsyncThunk('POST', ({ task, expireAt, createAt, completed, status, id }) => {
     return axios.post(`/tasks`, { id, task, createAt, expireAt, completed }).then((res) => {
         if (res.status === 200) {
             return res.data;
