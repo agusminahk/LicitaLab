@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import { getTasks } from '../store/tasks.js';
 import Task from './Task.jsx';
+import Header from './Header.jsx';
 
 function App() {
     const dispatch = useDispatch();
@@ -25,15 +26,7 @@ function App() {
                 // alignItems: 'center',
             }}
         >
-            <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
-                <Typography>Cosas por Hacer</Typography>
-                <Box>fecha</Box>
-            </Box>
-            <Box sx={{ display: 'flex' }}>
-                <Button> liberar seleccionados</Button>
-                <Button>icono + order</Button>
-                <Button>Filtro</Button>
-            </Box>
+            <Header />
 
             <Task />
         </Box>

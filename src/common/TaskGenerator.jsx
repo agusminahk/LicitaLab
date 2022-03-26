@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Box, Typography, Button, TextField, SvgIcon, Checkbox } from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -13,11 +13,22 @@ import EditIcon from '@mui/icons-material/Edit';
 import { ContentPasteSearchTwoTone } from '@mui/icons-material';
 
 import { updater } from '../helpers/requests.js';
-import { fechaActual } from '../helpers/auxileFunctions.js';
+import { taskStatus } from '../helpers/auxileFunctions.js';
 
 const TaskGenerator = (props) => {
     const dispatch = useDispatch();
-    const { id, task, expireAt, createAt, status, completed } = props.task;
+    const { id, task, expireAt, createAt, completed } = props.task;
+    const [status, setStatus] = useState(taskStatus(expireAt));
+
+    useEffect(() => {
+        setStatus(taskStatus(expireAt)); // cuando la fecha sea actualizada refrescamos el componente
+        const timer = () => setTimeout(() => setStatus(taskStatus(expireAt)), 15000);
+        const timerId = timer();
+
+        return () => {
+            clearTimeout(timerId);
+        };
+    }, [expireAt || status]);
 
     return (
         <Box
@@ -28,6 +39,8 @@ const TaskGenerator = (props) => {
                 boxShadow: '0 10px 60px 0 rgba(230, 230, 230, 0.8)',
                 margin: '15px',
                 borderRadius: '15px',
+
+                backgroundColor: status.color,
             }}
         >
             <Box sx={{ display: 'flex', flex: 1, alignItems: 'center', margin: '0 10px' }}>
@@ -39,6 +52,7 @@ const TaskGenerator = (props) => {
                 <LocalizationProvider dateAdapter={AdapterDateFns}>
                     <TextField
                         InputLabelProps={{ shrink: true }}
+                        sx={{ backgroundColor: '#fff', color: '#fff' }}
                         label="Dia"
                         type="datetime-local"
                         name="expireAt"
@@ -48,9 +62,15 @@ const TaskGenerator = (props) => {
                     />
                 </LocalizationProvider>
                 <SvgIcon
-                    component={AccessTimeFilledIcon}
+                    component={status.icon}
                     fontSize="large"
-                    sx={{ color: 'green', margin: '0 20px', boxShadow: '0 10px 60px 0 rgba(237, 237, 237, 0.8)' }}
+                    sx={{
+                        //backgroundColor: status.iconColor,
+                        color: status.iconColor,
+                        margin: '0 20px',
+                        borderRadius: '50px',
+                        boxShadow: '0 10px 60px 0 rgba(237, 237, 237, 0.8)',
+                    }}
                 />
             </Box>
 
