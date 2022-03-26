@@ -15,6 +15,10 @@ export default function BasicMenu() {
 
     const tasks = useSelector(({ tasks }) => tasks);
 
+    const orderByDate = (tareas) => {
+        return [...tareas].sort((a, b) => +new Date(b.expireAt) - +new Date(a.expireAt));
+    };
+
     const open = Boolean(anchorEl);
 
     const handleClick = (event) => {
@@ -48,17 +52,8 @@ export default function BasicMenu() {
                 <MenuItem
                     disableRipple
                     onClick={() => {
-                        dispatch(
-                            setTasks([
-                                {
-                                    id: 'l17yejd105eu7c5evp6v',
-                                    task: 'tarea vencida',
-                                    createAt: '2022-03-26T11:34',
-                                    expireAt: '2022-03-01T11:34',
-                                    completed: false,
-                                },
-                            ])
-                        );
+                        const tareasOrdenadas = orderByDate(tasks);
+                        dispatch(setTasks(tareasOrdenadas));
                         handleClose();
                     }}
                 >

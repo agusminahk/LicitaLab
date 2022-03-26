@@ -22,11 +22,12 @@ const TaskGenerator = (props) => {
 
     useEffect(() => {
         setStatus(taskStatus(expireAt)); // cuando la fecha sea actualizada refrescamos el componente
+
         const timer = () => setTimeout(() => setStatus(taskStatus(expireAt)), 15000);
         const timerId = timer();
 
         return () => {
-            clearTimeout(timerId);
+            clearTimeout(timerId); // limpiamos y optimizamos la memoria que consume nuestro timeOut
         };
     }, [expireAt || status]);
 
