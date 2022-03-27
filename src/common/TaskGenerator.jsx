@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Box, Typography, TextField, SvgIcon, Checkbox } from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
+import { setReleasedTask } from '../store/releaseTasks';
 import { updater } from '../helpers/requests.js';
 import { taskStatus } from '../helpers/auxileFunctions.js';
 
 const TaskGenerator = (props) => {
     const dispatch = useDispatch();
+    const releaseTasks = useSelector((state) => state.releaseTasks);
+
     const { id, task, expireAt, createAt, completed } = props.task;
-    const [status, setStatus] = useState(taskStatus(expireAt));
+    const [status, setStatus] = useState(taskStatus(expireAt, completed));
+    const [check, setCheck] = useState(completed);
 
     useEffect(() => {
-        setStatus(taskStatus(expireAt)); // cuando la fecha sea actualizada refrescamos el componente
+        setStatus(taskStatus(expireAt, completed)); // cuando la fecha sea actualizada refrescamos el componente
 
-        const timer = () => setTimeout(() => setStatus(taskStatus(expireAt)), 15000);
+        const timer = () => setTimeout(() => setStatus(taskStatus(expireAt, completed)), 15000);
         const timerId = timer();
 
         return () => {
@@ -32,12 +36,26 @@ const TaskGenerator = (props) => {
                 boxShadow: '0 10px 60px 0 rgba(230, 230, 230, 0.8)',
                 margin: '15px',
                 borderRadius: '15px',
-
                 backgroundColor: status.color,
             }}
         >
             <Box sx={{ display: 'flex', flex: 1, alignItems: 'center', margin: '0 10px' }}>
-                <Checkbox sx={{ margin: '0px 10px' }} />
+                <Checkbox
+                    checked={check}
+                    value={check}
+                    sx={{ margin: '0px 10px' }}
+                    disabled={(completed && true) || false}
+                    onChange={(e) => {
+                        setCheck(e.target.checked);
+                        if (!check) {
+                            const release = [...releaseTasks, props.task];
+                            dispatch(setReleasedTask(release));
+                        } else {
+                            const notReleaseYet = releaseTasks.filter((task) => task.id !== id);
+                            dispatch(setReleasedTask(notReleaseYet));
+                        }
+                    }}
+                />
                 <Typography>{task}</Typography>
             </Box>
 
@@ -58,7 +76,6 @@ const TaskGenerator = (props) => {
                     component={status.icon}
                     fontSize="large"
                     sx={{
-                        //backgroundColor: status.iconColor,
                         color: status.iconColor,
                         margin: '0 20px',
                         borderRadius: '50px',
@@ -66,22 +83,6 @@ const TaskGenerator = (props) => {
                     }}
                 />
             </Box>
-
-            {/* 
-            <Button
-                component={EditIcon}
-                variant="contained"
-                color="action"
-                sx={{
-                    color: '#404040',
-                    margin: 'auto',
-                    fontSize: '10px',
-                    height: '100%',
-                    //  border: '1px solid #404040',
-                    //borderRadius: '100%',
-                }}
-                onClick={() => handleChange()}
-            /> */}
         </Box>
     );
 };

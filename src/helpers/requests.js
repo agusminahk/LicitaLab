@@ -1,10 +1,11 @@
 import axios from 'axios';
 
 import { defaultOrder, orderByExpire } from './orderFunctions';
+import { sendUpdateToRelease } from '../store/releaseTasks';
 import { setTasks, sendUpdateRequest, sendDeleteRequest, sendCreateRequest } from '../store/tasks';
 
 const refresh = async (dispatch) => {
-    const result = await axios.get('/tasks');
+    const result = await axios.get('/tasks?completed=false');
 
     const order = window.localStorage.getItem('order');
 
@@ -34,5 +35,10 @@ export const create = async (dispatch, task, date) => {
 
 export const toTrash = (dispatch, id) => {
     dispatch(sendDeleteRequest(id));
+    refresh(dispatch);
+};
+
+export const changeTaskStatus = async (dispatch, tasks) => {
+    await dispatch(sendUpdateToRelease(tasks));
     refresh(dispatch);
 };

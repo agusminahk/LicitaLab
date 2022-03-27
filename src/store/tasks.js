@@ -3,17 +3,6 @@ import axios from 'axios';
 
 export const setTasks = createAction('SET_TASKS');
 
-// export const usertunk = createAsyncThunk('AUTO_LOGIN', () => {
-//     return axios.get('/api/user/me').then(({ data }) => data[0]);
-// });
-
-// export const sendLoginRequest = createAsyncThunk('LOGIN', (login) => {
-//     return axios.post('/api/auth/signin', login).then((res) => {
-//         if (res.status === 200) {
-//             return res.data[0];
-//         }
-//     });
-// });
 export const sendCreateRequest = createAsyncThunk('POST', ({ task, expireAt, createAt, completed, status, id }) => {
     return axios.post(`/tasks`, { id, task, createAt, expireAt, completed }).then((res) => {
         if (res.status === 200) {
