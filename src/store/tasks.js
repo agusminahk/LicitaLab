@@ -3,27 +3,21 @@ import axios from 'axios';
 
 export const setTasks = createAction('SET_TASKS');
 
-export const sendCreateRequest = createAsyncThunk('POST', ({ task, expireAt, createAt, completed, status, id }) => {
-    return axios.post(`/tasks`, { id, task, createAt, expireAt, completed }).then((res) => {
-        if (res.status === 200) {
-            return res.data;
-        }
-    });
+export const sendCreateRequest = createAsyncThunk('POST', async ({ task, expireAt, createAt, completed, id }) => {
+    const { data } = await axios.post(`/tasks/`, { task, createAt, expireAt, completed, id });
+    return data;
 });
 
-export const sendUpdateRequest = createAsyncThunk('UPDATE', ({ task, expireAt, createAt, completed, id }) => {
-    return axios.put(`/tasks/${id}`, { task, createAt, expireAt, completed }).then((res) => {
-        if (res.status === 200) {
-            return res.data[0];
-        }
-    });
+export const sendUpdateRequest = createAsyncThunk('UPDATE', async ({ task, expireAt, createAt, completed, id }) => {
+    const { data } = await axios.put(`/tasks/${id}`, { task, createAt, expireAt, completed });
+    return data;
 });
 
-export const sendDeleteRequest = createAsyncThunk('DELETE', (id) => axios.delete(`/tasks/${id}`));
+export const sendDeleteRequest = createAsyncThunk('DELETE', async (id) => await axios.delete(`/tasks/${id}`));
 
 export const tasksReducer = createReducer([], {
-    [setTasks]: (state, action) => action.payload,
+    [setTasks]: (state, action) => (state = action.payload),
     [sendUpdateRequest.fulfilled]: (state, action) => (state = action.payload),
-    [sendDeleteRequest.fulfilled]: (state, action) => action.payload,
-    [sendCreateRequest.fulfilled]: (state, action) => action.payload,
+    [sendDeleteRequest.fulfilled]: (state, action) => (state = action.payload),
+    [sendCreateRequest.fulfilled]: (state, action) => (state = action.payload),
 });

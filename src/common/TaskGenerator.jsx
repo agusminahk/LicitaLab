@@ -44,7 +44,7 @@ const TaskGenerator = (props) => {
                     checked={check}
                     value={check}
                     sx={{ margin: '0px 10px' }}
-                    disabled={(completed && true) || false}
+                    disabled={completed}
                     onChange={(e) => {
                         setCheck(e.target.checked);
                         if (!check) {

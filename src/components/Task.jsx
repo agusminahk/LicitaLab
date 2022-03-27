@@ -19,40 +19,41 @@ const Task = () => {
 
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            {listaDeTareas.map((task, i) => {
-                return (
-                    <Box sx={{ display: 'flex', alignItems: 'center' }} key={i}>
-                        <TaskGenerator task={task} />
-                        <IconButton
-                            color="info"
-                            sx={{
-                                margin: 'auto 10px',
-                                height: '100%',
-                            }}
-                            onClick={() => {
-                                setTareaParaEditar(task);
-                                setEdit(!edit);
-                                setShowForm(!showForm);
-                            }}
-                        >
-                            <EditIcon sx={{ fontSize: '40px' }} />
-                        </IconButton>
-                        <IconButton
-                            color="error"
-                            sx={{
-                                margin: 'auto',
-                                height: '100%',
-                            }}
-                            // onClick={() => {
-                            //     setEdit(!edit);
-                            //     setShowForm(!showForm);
-                            // }}
-                        >
-                            <DeleteIcon sx={{ fontSize: '40px' }} />
-                        </IconButton>
-                    </Box>
-                );
-            })}
+            {listaDeTareas.length &&
+                listaDeTareas.map((task, i) => {
+                    return (
+                        <Box sx={{ display: 'flex', alignItems: 'center' }} key={i}>
+                            <TaskGenerator task={task} />
+                            <IconButton
+                                color="info"
+                                sx={{
+                                    margin: 'auto 10px',
+                                    height: '100%',
+                                }}
+                                onClick={() => {
+                                    setTareaParaEditar(task);
+                                    setEdit(!edit);
+                                    setShowForm(!showForm);
+                                }}
+                            >
+                                <EditIcon sx={{ fontSize: '40px' }} />
+                            </IconButton>
+                            <IconButton
+                                color="error"
+                                sx={{
+                                    margin: 'auto',
+                                    height: '100%',
+                                }}
+                                // onClick={() => {
+                                //     setEdit(!edit);
+                                //     setShowForm(!showForm);
+                                // }}
+                            >
+                                <DeleteIcon sx={{ fontSize: '40px' }} />
+                            </IconButton>
+                        </Box>
+                    );
+                })}
 
             <Box
                 sx={{

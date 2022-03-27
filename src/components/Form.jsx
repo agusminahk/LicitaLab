@@ -12,7 +12,7 @@ const Form = ({ show, setShow, setEdit, type, task }) => {
         task: '',
         expireAt: '',
         createAt: '',
-        completed: Boolean,
+        completed: false,
     });
 
     const handleInputChange = (e) => {

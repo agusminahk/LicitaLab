@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import TasksOrderButton from './TasksOrderButton';
 import { changeTaskStatus } from '../helpers/requests';
+import Filters from './Filters';
 
 const Header = () => {
     const dispatch = useDispatch();
@@ -15,19 +16,20 @@ const Header = () => {
                 <Typography>Cosas por Hacer</Typography>
                 <Box>fecha</Box>
             </Box>
-            <Box sx={{ display: 'flex', justifyContent: 'space-around' }}>
+            <Box sx={{ alignItems: 'left', margin: '20px' }}>
                 <Button
+                    variant="contained"
+                    color="warning"
                     onClick={() => {
                         changeTaskStatus(dispatch, releaseTasks);
                     }}
                 >
-                    liberar seleccionados
+                    Liberar Seleccionados
                 </Button>
-                <Box sx={{ display: 'flex' }}>
-                    <TasksOrderButton />
-                    {/* <Button startIcon={<FilterListIcon />}>Order</Button> */}
-                    <Button>Filtro</Button>
-                </Box>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-around' }}>
+                <Filters />
+                <TasksOrderButton />
             </Box>
         </Box>
     );

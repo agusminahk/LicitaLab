@@ -29,20 +29,24 @@ export const refresh = async (dispatch) => {
 
 export const updater = async (dispatch, task) => {
     await dispatch(sendUpdateRequest({ ...task, id: task.id }));
-    refresh(dispatch);
+    await refresh(dispatch);
+    return;
 };
 
 export const create = async (dispatch, task, date) => {
     await dispatch(sendCreateRequest({ ...task, id: task.id, createAt: date }));
-    refresh(dispatch);
+    await refresh(dispatch);
+    return;
 };
 
-export const toTrash = (dispatch, id) => {
-    dispatch(sendDeleteRequest(id));
-    refresh(dispatch);
+export const toTrash = async (dispatch, id) => {
+    await dispatch(sendDeleteRequest(id));
+    await refresh(dispatch);
+    return;
 };
 
 export const changeTaskStatus = async (dispatch, tasks) => {
     await dispatch(sendUpdateToRelease(tasks));
     refresh(dispatch);
+    return;
 };
