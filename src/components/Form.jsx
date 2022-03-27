@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import { updater, create } from '../helpers/requests.js';
 import { fechaActual, uniqueId } from '../helpers/auxileFunctions';
 
-const RegisterDialogForm = ({ show, setShow, setEdit, type, task }) => {
+const Form = ({ show, setShow, setEdit, type, task }) => {
     const dispatch = useDispatch();
     const [formValues, setFormValues] = useState({
         id: '',
@@ -127,4 +127,4 @@ const RegisterDialogForm = ({ show, setShow, setEdit, type, task }) => {
     );
 };
 
-export default RegisterDialogForm;
+export default Form;

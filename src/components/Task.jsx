@@ -7,7 +7,6 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import TaskGenerator from '../common/TaskGenerator';
 import Form from './Form';
-import { defaultOrder } from '../helpers/orderFunctions.js';
 
 const Task = () => {
     const dispatch = useDispatch();
@@ -18,45 +17,42 @@ const Task = () => {
 
     const listaDeTareas = useSelector((state) => state.tasks) || [];
 
-    //  defaultOrder(listaDeTareas);
-
     return (
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            {listaDeTareas &&
-                listaDeTareas.map((task, i) => {
-                    return (
-                        <Box sx={{ display: 'flex', alignItems: 'center' }} key={i}>
-                            <TaskGenerator task={task} />
-                            <IconButton
-                                color="info"
-                                sx={{
-                                    margin: 'auto 10px',
-                                    height: '100%',
-                                }}
-                                onClick={() => {
-                                    setTareaParaEditar(task);
-                                    setEdit(!edit);
-                                    setShowForm(!showForm);
-                                }}
-                            >
-                                <EditIcon sx={{ fontSize: '40px' }} />
-                            </IconButton>
-                            <IconButton
-                                color="error"
-                                sx={{
-                                    margin: 'auto',
-                                    height: '100%',
-                                }}
-                                // onClick={() => {
-                                //     setEdit(!edit);
-                                //     setShowForm(!showForm);
-                                // }}
-                            >
-                                <DeleteIcon sx={{ fontSize: '40px' }} />
-                            </IconButton>
-                        </Box>
-                    );
-                })}
+            {listaDeTareas.map((task, i) => {
+                return (
+                    <Box sx={{ display: 'flex', alignItems: 'center' }} key={i}>
+                        <TaskGenerator task={task} />
+                        <IconButton
+                            color="info"
+                            sx={{
+                                margin: 'auto 10px',
+                                height: '100%',
+                            }}
+                            onClick={() => {
+                                setTareaParaEditar(task);
+                                setEdit(!edit);
+                                setShowForm(!showForm);
+                            }}
+                        >
+                            <EditIcon sx={{ fontSize: '40px' }} />
+                        </IconButton>
+                        <IconButton
+                            color="error"
+                            sx={{
+                                margin: 'auto',
+                                height: '100%',
+                            }}
+                            // onClick={() => {
+                            //     setEdit(!edit);
+                            //     setShowForm(!showForm);
+                            // }}
+                        >
+                            <DeleteIcon sx={{ fontSize: '40px' }} />
+                        </IconButton>
+                    </Box>
+                );
+            })}
 
             <Box
                 sx={{

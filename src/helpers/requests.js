@@ -1,16 +1,16 @@
 import axios from 'axios';
 
-import { defaultOrder, orderByExpire } from './orderFunctions';
+import { orderByDefault, orderByExpire, orderByImportance } from './orderFunctions';
 import { sendUpdateToRelease } from '../store/releaseTasks';
 import { setTasks, sendUpdateRequest, sendDeleteRequest, sendCreateRequest } from '../store/tasks';
 
-const refresh = async (dispatch) => {
-    const result = await axios.get('/tasks?completed=false');
+export const refresh = async (dispatch) => {
+    const result = await axios.get('/tasks');
 
     const order = window.localStorage.getItem('order');
 
     if (order === 'default') {
-        const tareasOrdenadasByDefault = defaultOrder(result.data);
+        const tareasOrdenadasByDefault = orderByDefault(result.data);
         return await dispatch(setTasks(tareasOrdenadasByDefault));
     }
 
@@ -19,8 +19,12 @@ const refresh = async (dispatch) => {
         return await dispatch(setTasks(tareasOrdenadasByExpire));
     }
 
-    if (order === 'status') {
+    if (order === 'importance') {
+        const tareasOrdenadasByImportance = orderByImportance(result.data);
+        return dispatch(setTasks(tareasOrdenadasByImportance));
     }
+
+    return dispatch(setTasks([]));
 };
 
 export const updater = async (dispatch, task) => {

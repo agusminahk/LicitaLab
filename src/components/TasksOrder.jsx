@@ -8,9 +8,9 @@ import EventNoteIcon from '@mui/icons-material/EventNote';
 import FilterListIcon from '@mui/icons-material/FilterList';
 
 import { setTasks } from '../store/tasks.js';
-import { orderByExpire } from '../helpers/orderFunctions.js';
+import { orderByExpire, orderByImportance, orderByDefault } from '../helpers/orderFunctions.js';
 
-export default function BasicMenu() {
+const TasksOrder = () => {
     const dispatch = useDispatch();
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -48,11 +48,11 @@ export default function BasicMenu() {
             >
                 <MenuItem
                     disableRipple
-                    // onClick={() => {
-                    //     const tareasOrdenadas = orderByExpire(tasks);
-                    //     dispatch(setTasks(tareasOrdenadas));
-                    //     handleClose();
-                    // }}
+                    onClick={() => {
+                        const tareasByDefault = orderByDefault(tasks);
+                        dispatch(setTasks(tareasByDefault));
+                        handleClose();
+                    }}
                 >
                     <EventNoteIcon sx={{ margin: '0px 5px' }} />
                     Fecha Creación
@@ -60,10 +60,9 @@ export default function BasicMenu() {
                 <MenuItem
                     disableRipple
                     onClick={() => {
-                        console.log(tasks);
                         const tareasOrdenadas = orderByExpire(tasks);
-                        console.log(tareasOrdenadas);
                         dispatch(setTasks(tareasOrdenadas));
+
                         handleClose();
                     }}
                 >
@@ -77,4 +76,6 @@ export default function BasicMenu() {
             </Menu>
         </div>
     );
-}
+};
+
+export default TasksOrder;
