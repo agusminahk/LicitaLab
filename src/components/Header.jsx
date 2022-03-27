@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Typography, Button, IconButton } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 
-import TasksOrder from './TasksOrder';
+import TasksOrderButton from './TasksOrderButton';
 import { changeTaskStatus } from '../helpers/requests';
 
 const Header = () => {
@@ -24,7 +24,7 @@ const Header = () => {
                     liberar seleccionados
                 </Button>
                 <Box sx={{ display: 'flex' }}>
-                    <TasksOrder />
+                    <TasksOrderButton />
                     {/* <Button startIcon={<FilterListIcon />}>Order</Button> */}
                     <Button>Filtro</Button>
                 </Box>
