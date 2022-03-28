@@ -12,7 +12,7 @@ const TaskGenerator = (props) => {
     const dispatch = useDispatch();
     const releaseTasks = useSelector((state) => state.releaseTasks);
 
-    const { id, task, expireAt, createAt, completed } = props.task;
+    const { id, task, expireAt, completed } = props.task;
     const [status, setStatus] = useState(taskStatus(expireAt, completed));
     const [check, setCheck] = useState(completed);
 

@@ -4,8 +4,8 @@ import { orderByDefault, orderByExpire, orderByImportance } from './orderFunctio
 import { sendUpdateToRelease } from '../store/releaseTasks';
 import { setTasks, sendUpdateRequest, sendDeleteRequest, sendCreateRequest } from '../store/tasks';
 
-export const refresh = async (dispatch) => {
-    const result = await axios.get('/tasks');
+export const refresh = async (dispatch, tareas) => {
+    const result = tareas || (await axios.get('/tasks'));
 
     const order = window.localStorage.getItem('order');
 

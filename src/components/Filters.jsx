@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { Box, TextField, Accordion, AccordionDetails, AccordionSummary, Button } from '@mui/material';
 import axios from 'axios';
-
+import { useDispatch } from 'react-redux';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearAllIcon from '@mui/icons-material/ClearAll';
 
+import { setTasks } from '../store/tasks.js';
+import { refresh } from '../helpers/requests';
+
 const Filters = () => {
+    const dispatch = useDispatch();
     const [formValues, setFormValues] = useState({
         content: '',
         hasta: '',
@@ -19,16 +23,24 @@ const Filters = () => {
     };
 
     const handleSearch = async () => {
-        console.log(formValues);
-        const { data } = await axios.get(`/tasks?task_like=${formValues.content}&`);
-        console.log(data);
+        const tareas = await axios.get(`/tasks?task_like=${formValues.content}`);
+        await refresh(dispatch, tareas);
+    };
+
+    const handleClearFilter = async () => {
+        await refresh(dispatch);
+        setFormValues({
+            content: '',
+            hasta: '',
+            desde: '',
+        });
     };
 
     return (
         <>
             <Accordion sx={{ width: '80%' }}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Button>FILTROS</Button>
+                    <Button>FILTRO</Button>
                 </AccordionSummary>
                 <AccordionDetails sx={{ width: '95%' }}>
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
@@ -40,10 +52,10 @@ const Filters = () => {
                                 variant="outlined"
                                 value={formValues.content}
                                 onChange={handleInputChange}
-                                sx={{ width: '25%' }}
+                                sx={{ width: '80%', margin: '0 auto' }}
                             />
 
-                            <TextField
+                            {/* <TextField
                                 InputLabelProps={{ shrink: true }}
                                 sx={{ backgroundColor: '#fff', color: '#fff' }}
                                 label="Desde"
@@ -60,7 +72,7 @@ const Filters = () => {
                                 name="hasta"
                                 value={formValues.hasta}
                                 onChange={handleInputChange}
-                            />
+                            /> */}
                         </Box>
                         <Box sx={{ display: 'flex', justifyContent: 'space-evenly', marginTop: '30px' }}>
                             <Button
@@ -72,7 +84,13 @@ const Filters = () => {
                             >
                                 Buscar
                             </Button>
-                            <Button startIcon={<ClearAllIcon />} size="large" variant="contained" color="info">
+                            <Button
+                                startIcon={<ClearAllIcon />}
+                                size="large"
+                                variant="contained"
+                                color="info"
+                                onClick={handleClearFilter}
+                            >
                                 Limpiar Filtros
                             </Button>
                         </Box>
