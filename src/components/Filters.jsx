@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Box, TextField, Accordion, AccordionDetails, AccordionSummary, Button } from '@mui/material';
+import { Box, TextField, Typography, Accordion, AccordionDetails, AccordionSummary, Button } from '@mui/material';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SearchIcon from '@mui/icons-material/Search';
 import ClearAllIcon from '@mui/icons-material/ClearAll';
 
-import { setTasks } from '../store/tasks.js';
 import { refresh } from '../helpers/requests';
 
 const Filters = () => {
@@ -40,7 +39,7 @@ const Filters = () => {
         <>
             <Accordion sx={{ width: '80%' }}>
                 <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Button>FILTRO</Button>
+                    <Typography variant="h6">FILTROS</Typography>
                 </AccordionSummary>
                 <AccordionDetails sx={{ width: '95%' }}>
                     <Box sx={{ display: 'flex', flexDirection: 'column' }}>
