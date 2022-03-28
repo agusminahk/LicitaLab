@@ -3,7 +3,7 @@
     {
       "task": "planchar la ropa",
       "createAt": "2022-03-26T18:10",
-      "expireAt": "2022-03-26T20:09",
+      "expireAt": "2022-03-09T21:09",
       "completed": false,
       "id": "l18cixpwegso4a4041s"
     },
@@ -90,41 +90,6 @@
       "createAt": "2022-03-27T20:26",
       "expireAt": "2022-03-27T20:26",
       "completed": false
-    },
-    {
-      "id": "l19wyfpcsldmseylgqc",
-      "task": "test again with refresh",
-      "createAt": "2022-03-27T20:29",
-      "expireAt": "2022-03-27T20:29",
-      "completed": false
-    },
-    {
-      "id": "l19wz8y6oa7p0nrsd48",
-      "task": "refresh con dos segundos",
-      "createAt": "2022-03-27T20:30",
-      "expireAt": "2022-03-27T20:30",
-      "completed": false
-    },
-    {
-      "task": "check otra vezzz",
-      "createAt": "2022-03-27T20:38",
-      "expireAt": "2022-03-27T20:38",
-      "completed": false,
-      "id": "l19x9zp8ugadihf0uto"
-    },
-    {
-      "task": "check por decima vez",
-      "createAt": "2022-03-27T20:39",
-      "expireAt": "2022-03-27T20:39",
-      "completed": false,
-      "id": "l19xb3eqt9zovt1jxxd"
-    },
-    {
-      "task": "dios mio",
-      "createAt": "2022-03-27T20:40",
-      "expireAt": "2022-03-27T20:40",
-      "completed": true,
-      "id": "l19xc4ooxq4aqzcrlgh"
     }
   ]
 }

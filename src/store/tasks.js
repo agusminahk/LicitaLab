@@ -3,17 +3,23 @@ import axios from 'axios';
 
 export const setTasks = createAction('SET_TASKS');
 
-export const sendCreateRequest = createAsyncThunk('POST', async ({ task, expireAt, createAt, completed, id }) => {
+export const sendCreateRequest = createAsyncThunk('POST_TASK', async ({ task, expireAt, createAt, completed, id }) => {
     const { data } = await axios.post(`/tasks/`, { task, createAt, expireAt, completed, id });
     return data;
 });
 
-export const sendUpdateRequest = createAsyncThunk('UPDATE', async ({ task, expireAt, createAt, completed, id }) => {
-    const { data } = await axios.put(`/tasks/${id}`, { task, createAt, expireAt, completed });
+export const sendUpdateRequest = createAsyncThunk(
+    'UPDATE_TASK',
+    async ({ task, expireAt, createAt, completed, id }) => {
+        const { data } = await axios.put(`/tasks/${id}`, { task, createAt, expireAt, completed });
+        return data;
+    }
+);
+
+export const sendDeleteRequest = createAsyncThunk('DELETE_TASK', async (id) => {
+    const { data } = await axios.delete(`/tasks/${id}`);
     return data;
 });
-
-export const sendDeleteRequest = createAsyncThunk('DELETE', async (id) => await axios.delete(`/tasks/${id}`));
 
 export const tasksReducer = createReducer([], {
     [setTasks]: (state, action) => (state = action.payload),

@@ -145,7 +145,7 @@ const Form = ({ show, setShow, setEdit, type, task }) => {
                                 type="button"
                                 onClick={() => {
                                     setShow(false);
-                                    type === 'editTask' && setTimeout(() => setEdit(false), 500);
+                                    type === 'editTask' && setTimeout(() => setEdit(false), 300);
                                 }}
                                 disableElevation
                             >

@@ -7,6 +7,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import TaskGenerator from '../common/TaskGenerator';
 import Form from './Form';
+import { toTrash } from '../helpers/requests.js';
 
 const Task = () => {
     const dispatch = useDispatch();
@@ -44,10 +45,7 @@ const Task = () => {
                                     margin: 'auto',
                                     height: '100%',
                                 }}
-                                // onClick={() => {
-                                //     setEdit(!edit);
-                                //     setShowForm(!showForm);
-                                // }}
+                                onClick={() => toTrash(dispatch, task.id)}
                             >
                                 <DeleteIcon sx={{ fontSize: '40px' }} />
                             </IconButton>
