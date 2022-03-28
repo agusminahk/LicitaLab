@@ -27,8 +27,6 @@ const TaskGenerator = (props) => {
         };
     }, [expireAt || status]);
 
-    console.log({ task, completed, check });
-
     return (
         <Box
             sx={{

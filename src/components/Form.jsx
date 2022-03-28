@@ -1,4 +1,14 @@
-import { Button, Dialog, DialogContent, DialogTitle, Grid, TextField } from '@mui/material';
+import {
+    Button,
+    Dialog,
+    DialogContent,
+    DialogTitle,
+    Grid,
+    TextField,
+    Switch,
+    FormGroup,
+    FormControlLabel,
+} from '@mui/material';
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -33,10 +43,10 @@ const Form = ({ show, setShow, setEdit, type, task }) => {
 
     useEffect(() => {
         setFormValues({
-            id: task.id || uniqueId(),
-            task: task.task || '',
-            expireAt: task.expireAt || fechaActual(),
-            createAt: task.createAt || '',
+            id: type === 'editTask' ? task.id : uniqueId(),
+            task: type === 'editTask' ? task.task : '',
+            expireAt: type === 'editTask' ? task.expireAt : fechaActual(),
+            createAt: type === 'editTask' ? task.createAt : '',
             completed: task.completed || false,
         });
     }, [show]);
@@ -86,6 +96,28 @@ const Form = ({ show, setShow, setEdit, type, task }) => {
                                 onChange={handleInputChange}
                             />
                         </Grid>
+
+                        {/* SI LIBERARON POR ERROR UNA TAREA, DESDE LA OPCION DE EDITAR PODRAN VOLVER ATRAS */}
+
+                        {type === 'editTask' && (
+                            <Grid item xs={12}>
+                                <FormGroup>
+                                    <FormControlLabel
+                                        control={
+                                            <Switch
+                                                defaultChecked={task.completed}
+                                                onChange={(e) => {
+                                                    setFormValues({ ...formValues, ['completed']: e.target.checked });
+                                                }}
+                                            />
+                                        }
+                                        label="Tarea Completada"
+                                    />
+                                </FormGroup>
+                            </Grid>
+                        )}
+
+                        {/*  */}
 
                         <Grid
                             item

@@ -123,7 +123,7 @@
       "task": "dios mio",
       "createAt": "2022-03-27T20:40",
       "expireAt": "2022-03-27T20:40",
-      "completed": false,
+      "completed": true,
       "id": "l19xc4ooxq4aqzcrlgh"
     }
   ]
