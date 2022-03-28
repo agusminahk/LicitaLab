@@ -13,7 +13,7 @@ const Header = () => {
     const today = () => {
         const hoy = new Date();
         const yyyy = hoy.getFullYear();
-        let mm = hoy.getMonth() + 1; // Months start at 0!
+        let mm = hoy.getMonth() + 1;
         let dd = hoy.getDate();
 
         if (dd < 10) dd = '0' + dd;

@@ -9,7 +9,6 @@ export const sendUpdateToRelease = createAsyncThunk('UPDATE', async (tasks) => {
         promises.push(axios.put(`/tasks/${id}`, { task, createAt, expireAt, completed: !completed }));
     });
     await Promise.all(promises);
-
     return [];
 });
 

@@ -9,47 +9,12 @@ import {
     FormGroup,
     FormControlLabel,
 } from '@mui/material';
-import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 
-import { updater, create } from '../helpers/requests.js';
-import { fechaActual, uniqueId } from '../helpers/auxileFunctions';
+import useForm from '../hooks/useForm';
 
 const Form = ({ show, setShow, setEdit, type, task }) => {
-    const dispatch = useDispatch();
-    const [formValues, setFormValues] = useState({
-        id: '',
-        task: '',
-        expireAt: '',
-        createAt: '',
-        completed: false,
-    });
-
-    const handleInputChange = (e) => {
-        const name = e.target.name;
-        setFormValues({ ...formValues, [name]: e.target.value });
-    };
-
-    const handleSubmit = () => {
-        if (task.id) {
-            updater(dispatch, formValues);
-            setTimeout(() => setEdit(false), 500);
-        } else {
-            const date = fechaActual();
-            create(dispatch, formValues, date);
-        }
-        setShow(false);
-    };
-
-    useEffect(() => {
-        setFormValues({
-            id: type === 'editTask' ? task.id : uniqueId(),
-            task: type === 'editTask' ? task.task : '',
-            expireAt: type === 'editTask' ? task.expireAt : fechaActual(),
-            createAt: type === 'editTask' ? task.createAt : '',
-            completed: task.completed || false,
-        });
-    }, [show]);
+    const { formValues, setFormValues, handleInputChange, handleSubmit } = useForm(show, setShow, setEdit, type, task);
 
     return (
         <>
