@@ -27,6 +27,8 @@ const TaskGenerator = (props) => {
         };
     }, [expireAt || status]);
 
+    console.log({ task, completed, check });
+
     return (
         <Box
             sx={{
@@ -41,7 +43,7 @@ const TaskGenerator = (props) => {
         >
             <Box sx={{ display: 'flex', flex: 1, alignItems: 'center', margin: '0 10px' }}>
                 <Checkbox
-                    checked={check}
+                    checked={(completed && true) || false}
                     value={check}
                     sx={{ margin: '0px 10px' }}
                     disabled={completed}
