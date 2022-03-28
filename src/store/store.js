@@ -4,7 +4,7 @@ import { tasksReducer } from './tasks.js';
 import { releaseTasksReducer } from './releaseTasks.js';
 
 export const store = configureStore({
-    middleware: (mw) => mw().concat(logger),
+    //middleware: (mw) => mw().concat(logger),
     reducer: {
         tasks: tasksReducer,
         releaseTasks: releaseTasksReducer,

@@ -14,18 +14,19 @@ const TaskGenerator = (props) => {
 
     const { id, task, expireAt, completed } = props.task;
     const [status, setStatus] = useState(taskStatus(expireAt, completed));
-    const [check, setCheck] = useState(completed);
+    const [check, setCheck] = useState(false);
 
     useEffect(() => {
         setStatus(taskStatus(expireAt, completed)); // cuando la fecha sea actualizada refrescamos el componente
+        setCheck(false);
 
-        const timer = () => setTimeout(() => setStatus(taskStatus(expireAt, completed)), 15000);
+        const timer = () => setInterval(() => setStatus(taskStatus(expireAt, completed)), 5000);
         const timerId = timer();
 
         return () => {
-            clearTimeout(timerId); // limpiamos y optimizamos la memoria que consume nuestro timeOut
+            clearInterval(timerId); // limpiamos y optimizamos la memoria que consume nuestro interval
         };
-    }, [expireAt || status]);
+    }, [props.lista]);
 
     return (
         <Box
@@ -41,7 +42,7 @@ const TaskGenerator = (props) => {
         >
             <Box sx={{ display: 'flex', flex: 1, alignItems: 'center', margin: '0 10px' }}>
                 <Checkbox
-                    checked={(completed && true) || false}
+                    checked={(completed && true) || check}
                     value={check}
                     sx={{ margin: '0px 10px' }}
                     disabled={completed}

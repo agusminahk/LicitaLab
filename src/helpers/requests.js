@@ -47,6 +47,6 @@ export const toTrash = async (dispatch, id) => {
 
 export const changeTaskStatus = async (dispatch, tasks) => {
     await dispatch(sendUpdateToRelease(tasks));
-    refresh(dispatch);
+    await refresh(dispatch);
     return;
 };

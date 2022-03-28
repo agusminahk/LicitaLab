@@ -24,7 +24,7 @@ const Task = () => {
                 listaDeTareas.map((task, i) => {
                     return (
                         <Box sx={{ display: 'flex', alignItems: 'center' }} key={i}>
-                            <TaskGenerator task={task} />
+                            <TaskGenerator task={task} lista={listaDeTareas} />
                             <IconButton
                                 color="info"
                                 sx={{

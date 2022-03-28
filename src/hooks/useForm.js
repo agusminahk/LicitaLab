@@ -20,7 +20,7 @@ const useForm = (show, setShow, setEdit, type, task) => {
     };
 
     const handleSubmit = () => {
-        if (task.id) {
+        if (type === 'editTask') {
             updater(dispatch, formValues);
             setTimeout(() => setEdit(false), 500);
         } else {
@@ -36,7 +36,7 @@ const useForm = (show, setShow, setEdit, type, task) => {
             task: type === 'editTask' ? task.task : '',
             expireAt: type === 'editTask' ? task.expireAt : fechaActual(),
             createAt: type === 'editTask' ? task.createAt : '',
-            completed: task.completed || false,
+            completed: type === 'editTask' ? task.completed : false,
         });
     }, [show]);
 
