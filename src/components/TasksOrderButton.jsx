@@ -27,6 +27,7 @@ const TasksOrderButton = () => {
         setAnchorEl(null);
     };
 
+    // Funcion para cambiar el orden
     const handleOrder = (orderFunction) => {
         const tareasOrdenadas = orderFunction(tasks);
         dispatch(setTasks(tareasOrdenadas));

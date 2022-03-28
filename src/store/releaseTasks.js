@@ -8,7 +8,10 @@ export const sendUpdateToRelease = createAsyncThunk('UPDATE', async (tasks) => {
     tasks.forEach(({ id, task, createAt, expireAt, completed }) => {
         promises.push(axios.put(`/tasks/${id}`, { task, createAt, expireAt, completed: !completed }));
     });
+
+    // Completamos todas los pedidos a liberar
     await Promise.all(promises);
+
     return [];
 });
 

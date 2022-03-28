@@ -49,9 +49,11 @@ const TaskGenerator = (props) => {
                     onChange={(e) => {
                         setCheck(e.target.checked);
                         if (!check) {
+                            // Agregar una tarea a nuestro estado
                             const release = [...releaseTasks, props.task];
                             dispatch(setReleasedTask(release));
                         } else {
+                            //Si sacamos el check tambien sacamos la tarea de nuestro estado
                             const notReleaseYet = releaseTasks.filter((task) => task.id !== id);
                             dispatch(setReleasedTask(notReleaseYet));
                         }

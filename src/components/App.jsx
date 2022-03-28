@@ -9,6 +9,7 @@ import Header from './Header.jsx';
 function App() {
     const dispatch = useDispatch();
 
+    // Creamos la key order si no existe y le asignamos default
     if (!window.localStorage.getItem('order')) window.localStorage.setItem('order', 'default');
 
     useEffect(() => {
@@ -25,7 +26,6 @@ function App() {
             }}
         >
             <Header />
-
             <Task />
         </Box>
     );
